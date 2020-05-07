@@ -88,6 +88,6 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr
+noremap <leader>0 :tablast<CR>
 noremap <leader>g :tabnext<CR>
 noremap <leader>t :tabprevious<CR>
