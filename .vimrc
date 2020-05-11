@@ -34,6 +34,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jremmen/vim-ripgrep'
 Plug 'preservim/nerdtree'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 colorscheme elflord
