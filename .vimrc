@@ -16,6 +16,7 @@ set undodir=~/.vim/undodir
 set undofile
 set incsearch
 set backspace=indent,eol,start
+set colorcolumn=80
 "
 " Give more space for displaying messages.
 set cmdheight=2
@@ -35,11 +36,22 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jremmen/vim-ripgrep'
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
+Plug 'rafi/awesome-vim-colorschemes'
 call plug#end()
 
 colorscheme elflord
+" Not sure how to get this to work properly but at least coc errors are
+" readable
+"hi! link CocErrorSign White
+hi Quote ctermbg=109 guifg=#83a598
+highlight link CocErrorSign GruvboxRed
+highlight link CocWarningSign GruvboxRed
+highlight link CocInfoSign GruvboxRed
+
+highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
+
 autocmd FileType go setlocal shiftwidth=4 softtabstop=4 noexpandtab
-autocmd FileType yaml setlocal shiftwidth=2 softtabstop=2
+autocmd FileType yaml,tf setlocal shiftwidth=2 softtabstop=2
 autocmd BufEnter *.tfstate :setlocal filetype=json
 autocmd BufEnter Jenkinsfile :setlocal filetype=groovy
 
@@ -52,19 +64,21 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+" coc calls
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-nnoremap E <C-E>
-nnoremap Y <C-Y>
+nnoremap <silent> <leader>gg :CocRestart<CR>
 
 " Nerdtree. Copypasta from readme
+map <C-m> :NERDTreeFind<CR>
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+let NERDTreeQuitOnOpen=1
 
 " Swapping between splits
 nnoremap <C-J> <C-W><C-J>
@@ -90,5 +104,22 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
-noremap <leader>g :tabnext<CR>
+noremap <leader>y :tabnext<CR>
 noremap <leader>t :tabprevious<CR>
+
+" Create/load session
+noremap <leader>s :exe 'mks! ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
+noremap <leader>S :exe 'source ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
+
+" esc
+imap jj <Esc>
+
+"" Custom remaps
+" scroll up/down
+nnoremap E <C-E>
+nnoremap Y <C-Y>
+" golang macro
+noremap <leader>if iif err != nil {<ESC>oreturn err<ESC>o}<ESC>
+noremap <leader>of oif err != nil {<ESC>oreturn err<ESC>o}<ESC>
+" curly brackets
+noremap <leader>{ a{<CR>}<ESC>O
