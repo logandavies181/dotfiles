@@ -17,6 +17,7 @@ set undofile
 set incsearch
 set backspace=indent,eol,start
 set colorcolumn=80
+set t_Co=256
 "
 " Give more space for displaying messages.
 set cmdheight=2
@@ -37,9 +38,13 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 colorscheme elflord
+let g:airline_theme='angr'
+
 " Not sure how to get this to work properly but at least coc errors are
 " readable
 "hi! link CocErrorSign White
@@ -50,8 +55,12 @@ highlight link CocInfoSign GruvboxRed
 
 highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 
+" Non specific autocmds
+
+" Filetype specific settings
 autocmd FileType go setlocal shiftwidth=4 softtabstop=4 noexpandtab
 autocmd FileType yaml,tf setlocal shiftwidth=2 softtabstop=2
+autocmd FileType markdown setlocal wrap
 autocmd BufEnter *.tfstate :setlocal filetype=json
 autocmd BufEnter Jenkinsfile :setlocal filetype=groovy
 
@@ -73,8 +82,8 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> <leader>gg :CocRestart<CR>
 
 " Nerdtree. Copypasta from readme
-map <C-m> :NERDTreeFind<CR>
-map <C-n> :NERDTreeToggle<CR>
+map <silent> <C-m> :NERDTreeFind<CR>
+map <silent> <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
@@ -115,11 +124,10 @@ noremap <leader>S :exe 'source ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
 imap jj <Esc>
 
 "" Custom remaps
-" scroll up/down
-nnoremap E <C-E>
-nnoremap Y <C-Y>
+" jump backwards to space
+nnoremap <leader>f F 
 " golang macro
-noremap <leader>if iif err != nil {<ESC>oreturn err<ESC>o}<ESC>
-noremap <leader>of oif err != nil {<ESC>oreturn err<ESC>o}<ESC>
+noremap <silent> <leader>if iif err != nil {<ESC>oreturn err<ESC>o}<ESC>
+noremap <silent> <leader>of oif err != nil {<ESC>oreturn err<ESC>o}<ESC>
 " curly brackets
-noremap <leader>{ a{<CR>}<ESC>O
+noremap <silent> <leader>{ a{<CR>}<ESC>O
