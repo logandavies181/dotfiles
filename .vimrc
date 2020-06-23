@@ -127,7 +127,8 @@ imap jj <Esc>
 " jump backwards to space
 nnoremap <leader>f F 
 " golang macro
-noremap <silent> <leader>if iif err != nil {<ESC>oreturn err<ESC>o}<ESC>
-noremap <silent> <leader>of oif err != nil {<ESC>oreturn err<ESC>o}<ESC>
+noremap <silent> <leader>if iif err != nil {<CR>return err<CR>}<ESC>
+noremap <silent> <leader>of oif err != nil {<CR>return err<CR>}<ESC>
+noremap <silent> <leader>af oif err != nil {<CR>return <CR>}<ESC>kA
 " curly brackets
 noremap <silent> <leader>{ a{<CR>}<ESC>O
