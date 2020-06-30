@@ -9,6 +9,7 @@ set expandtab
 set smartindent
 set nu
 set nowrap
+set ignorecase
 set smartcase
 set noswapfile
 set nobackup
@@ -58,9 +59,11 @@ highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 " Non specific autocmds
 
 " Filetype specific settings
-autocmd FileType go setlocal shiftwidth=4 softtabstop=4 noexpandtab
+autocmd FileType go setlocal shiftwidth=8 softtabstop=8 tabstop=8 noexpandtab
 autocmd FileType yaml,tf setlocal shiftwidth=2 softtabstop=2
 autocmd FileType markdown setlocal wrap
+autocmd FileType json setlocal t_Co&
+autocmd FileType json highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 autocmd BufEnter *.tfstate :setlocal filetype=json
 autocmd BufEnter Jenkinsfile :setlocal filetype=groovy
 
@@ -88,6 +91,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 let NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
 
 " Swapping between splits
 nnoremap <C-J> <C-W><C-J>
@@ -117,8 +121,8 @@ noremap <leader>y :tabnext<CR>
 noremap <leader>t :tabprevious<CR>
 
 " Create/load session
-noremap <leader>s :exe 'mks! ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
-noremap <leader>S :exe 'source ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
+nnoremap <leader>s :exe 'mks! ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
+nnoremap <leader>S :exe 'source ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
 
 " esc
 imap jj <Esc>
@@ -131,4 +135,9 @@ noremap <silent> <leader>if iif err != nil {<CR>return err<CR>}<ESC>
 noremap <silent> <leader>of oif err != nil {<CR>return err<CR>}<ESC>
 noremap <silent> <leader>af oif err != nil {<CR>return <CR>}<ESC>kA
 " curly brackets
-noremap <silent> <leader>{ a{<CR>}<ESC>O
+imap <silent> <leader>{ a{<CR>}<ESC>O
+" jump around
+nnoremap <silent> <leader>j 10j
+nnoremap <silent> <leader>n 5j
+nnoremap <silent> <leader>k 10k
+nnoremap <silent> <leader>m 5k
