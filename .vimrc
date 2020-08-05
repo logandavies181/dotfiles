@@ -19,6 +19,7 @@ set incsearch
 set backspace=indent,eol,start
 set colorcolumn=80
 set t_Co=256
+set autoread
 "
 " Give more space for displaying messages.
 set cmdheight=2
@@ -41,6 +42,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 
 colorscheme elflord
@@ -60,11 +64,12 @@ highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 
 " Filetype specific settings
 autocmd FileType go setlocal shiftwidth=8 softtabstop=8 tabstop=8 noexpandtab
-autocmd FileType yaml,tf setlocal shiftwidth=2 softtabstop=2
+autocmd FileType yaml,tf,hcl setlocal shiftwidth=2 softtabstop=2
 autocmd FileType markdown setlocal wrap
 autocmd FileType json setlocal t_Co&
 autocmd FileType json highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 autocmd BufEnter *.tfstate :setlocal filetype=json
+autocmd BufEnter *.tf :setlocal filetype=tf
 autocmd BufEnter Jenkinsfile :setlocal filetype=groovy
 
 " reopen file at same line
@@ -77,12 +82,16 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
-" coc calls
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" coc calls + copypasta
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
+nmap <silent> <leader>[g <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>]g <Plug>(coc-diagnostic-next)
 nnoremap <silent> <leader>gg :CocRestart<CR>
+" Refresh on space
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Nerdtree. Copypasta from readme
 map <silent> <C-m> :NERDTreeFind<CR>
@@ -117,27 +126,67 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
-noremap <leader>y :tabnext<CR>
-noremap <leader>t :tabprevious<CR>
 
 " Create/load session
 nnoremap <leader>s :exe 'mks! ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
 nnoremap <leader>S :exe 'source ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
 
-" esc
+" quick escape
 imap jj <Esc>
 
 "" Custom remaps
 " jump backwards to space
 nnoremap <leader>f F 
 " golang macro
-noremap <silent> <leader>if iif err != nil {<CR>return err<CR>}<ESC>
-noremap <silent> <leader>of oif err != nil {<CR>return err<CR>}<ESC>
-noremap <silent> <leader>af oif err != nil {<CR>return <CR>}<ESC>kA
+nnoremap <silent> <leader>if iif err != nil {<CR>return err<CR>}<ESC>
+nnoremap <silent> <leader>of oif err != nil {<CR>return err<CR>}<ESC>
+nnoremap <silent> <leader>af oif err != nil {<CR>return <CR>}<ESC>kA
 " curly brackets
-imap <silent> <leader>{ a{<CR>}<ESC>O
+imap {} {<CR>}<ESC>O
 " jump around
 nnoremap <silent> <leader>j 10j
 nnoremap <silent> <leader>n 5j
 nnoremap <silent> <leader>k 10k
 nnoremap <silent> <leader>m 5k
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
+
+" fzf ctrlp
+nnoremap <silent> <C-p> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-u': 'split',
+  \ 'ctrl-s': 'vsplit' }
+
+" terminal
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+tnoremap <silent> <C-d> <C-\><C-n>:bd!<CR>
+tnoremap jj <C-\><C-n>
+" autocmd BufWinEnter,WinEnter term://* :setlocal nonu
+autocmd BufEnter * if &buftype == 'terminal' | exec 'normal! i' | endif
+let g:hidden_term = 0
+function TerminalModeSettings()
+    setlocal nonu
+    tnoremap <silent> u <C-\><C-n>:call HideTerminal()<CR>
+endfunction
+function HideTerminal()
+    let g:hidden_term = bufnr("%")
+    hide
+endfunction
+function EnterTerminal(type)
+    if g:hidden_term
+        let l:hidden_term = g:hidden_term
+        let g:hidden_term = 0
+        exec a:type . 'sb ' . l:hidden_term
+    else
+        terminal bash
+    endif
+endfunction
+
+autocmd BufEnter,TerminalOpen * if &buftype == 'terminal' | exec TerminalModeSettings() | endif
+nnoremap <silent> y :call EnterTerminal("tab ")<CR>
+nnoremap <silent> u :call EnterTerminal("")<CR>
+nnoremap <silent> i :call EnterTerminal("vert ")<CR>
