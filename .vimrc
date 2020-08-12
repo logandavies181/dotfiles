@@ -87,8 +87,8 @@ nmap <silent> <leader>gd <Plug>(coc-definition)
 nmap <silent> <leader>gy <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
-nmap <silent> <leader>[g <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>]g <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>g[ <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>g] <Plug>(coc-diagnostic-next)
 nnoremap <silent> <leader>gg :CocRestart<CR>
 " Refresh on space
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -190,3 +190,7 @@ autocmd BufEnter,TerminalOpen * if &buftype == 'terminal' | exec TerminalModeSet
 nnoremap <silent> y :call EnterTerminal("tab ")<CR>
 nnoremap <silent> u :call EnterTerminal("")<CR>
 nnoremap <silent> i :call EnterTerminal("vert ")<CR>
+
+" line folding
+set foldmethod=syntax
+set nofoldenable
