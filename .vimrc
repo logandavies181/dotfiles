@@ -44,6 +44,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'pprovost/vim-ps1'
 
 call plug#end()
 
@@ -136,18 +137,18 @@ imap jj <Esc>
 
 "" Custom remaps
 " jump backwards to space
-nnoremap <leader>f F 
+nnoremap <leader>f F
 " golang macro
 nnoremap <silent> <leader>if iif err != nil {<CR>return err<CR>}<ESC>
 nnoremap <silent> <leader>of oif err != nil {<CR>return err<CR>}<ESC>
 nnoremap <silent> <leader>af oif err != nil {<CR>return <CR>}<ESC>kA
 " curly brackets
-imap {} {<CR>}<ESC>O
+imap {<Space>} {<CR>}<ESC>O
 " jump around
 nnoremap <silent> <leader>j 10j
-nnoremap <silent> <leader>n 5j
 nnoremap <silent> <leader>k 10k
-nnoremap <silent> <leader>m 5k
+nnoremap J 5j
+nnoremap K 5k
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
@@ -194,3 +195,6 @@ nnoremap <silent> i :call EnterTerminal("vert ")<CR>
 " line folding
 set foldmethod=syntax
 set nofoldenable
+
+" Remove trailing whitespace
+nnoremap <silent> <leader>w :%s/\s\+$//e<CR>
