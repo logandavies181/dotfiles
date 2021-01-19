@@ -13,14 +13,15 @@ set ignorecase
 set smartcase
 set noswapfile
 set nobackup
-set undodir=/home/vagrant/.config/nvim/undodir
+set undodir=/home/daviesl2/.config/nvim/undodir
 set undofile
 set incsearch
 set backspace=indent,eol,start
 set colorcolumn=80
 set t_Co=256
 set autoread
-set shadafile=/home/vagrant/.config/nvim/viminfo
+set shadafile=/home/daviesl2/.config/nvim/viminfo
+set scrolloff=8
 "
 " Give more space for displaying messages.
 set cmdheight=2
@@ -52,29 +53,15 @@ Plug 'zigford/vim-powershell'
 
 call plug#end()
 
-colorscheme atom
-" Custom colour overrides
-highlight Comment ctermfg=6
-highlight LineNr ctermfg=145
-highlight String ctermfg=13
-highlight Normal ctermfg=white ctermbg=238
-highlight Keyword ctermfg=11
-highlight Preproc ctermfg=214
-highlight Special ctermfg=177
-highlight Statement ctermfg=11
-highlight Identifier ctermfg=81
+"highlight Normal ctermbg=238
+colo gruvbox
 let g:airline_theme='angr'
 lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
-" Not sure how to get this to work properly but at least coc errors are
-" readable
-"hi! link CocErrorSign White
-hi Quote ctermbg=109 guifg=#83a598
-highlight link CocErrorSign GruvboxRed
-highlight link CocWarningSign GruvboxRed
-highlight link CocInfoSign GruvboxRed
-
 highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
+
+" quick escape
+imap jj <Esc>
 
 " Non specific autocmds
 
@@ -129,11 +116,6 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 
-" Swapping between splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 " split right and below instead of left and up
 set splitbelow
 set splitright
@@ -164,16 +146,7 @@ tnoremap <leader>7 <C-\><C-n>7gt
 tnoremap <leader>8 <C-\><C-n>8gt
 tnoremap <leader>9 <C-\><C-n>9gt
 
-" Create/load session
-nnoremap <leader>s :exe 'mks! ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
-nnoremap <leader>S :exe 'source ~/.vim/sessions/' . expand('%:t') . '.vim'<CR>
-
-" quick escape
-imap jj <Esc>
-
 "" Custom remaps
-" jump backwards to space
-nnoremap <leader>f F
 " golang macro
 nnoremap <silent> <leader>if iif err != nil {<CR>return err<CR>}<ESC>
 nnoremap <silent> <leader>of oif err != nil {<CR>return err<CR>}<ESC>
@@ -185,8 +158,12 @@ nnoremap <silent> <leader>j 10j
 nnoremap <silent> <leader>k 10k
 nnoremap J 5j
 nnoremap K 5k
+nnoremap H 5h
+nnoremap L 5l
 nnoremap <C-j> 5j5<C-e>
 nnoremap <C-k> 5k5<C-y>
+nnoremap <C-h> H
+nnoremap <C-l> L
 vnoremap J 5j
 vnoremap K 5k
 nnoremap <C-e> 5<C-e>
