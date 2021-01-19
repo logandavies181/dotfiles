@@ -225,3 +225,4 @@ endfun
 nnoremap <silent> <leader>c :call SynGroup()<CR>
 
 let g:python_highlight_all = 1
+
