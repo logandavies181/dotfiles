@@ -1,18 +1,22 @@
 {
-"languageserver": {
+  "languageserver": {
     "terraform": {
-			"command": "terraform-ls",
-			"args": ["serve"],
-			"filetypes": [
-				"terraform",
-				"tf"
-			],
-			"initializationOptions": {},
-			"settings": {}
-		},
-  "golang": {
+      "command": "terraform-ls",
+      "args": [
+        "serve"
+      ],
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    },
+    "golang": {
       "command": "/home/daviesl2/go/bin/gopls",
-      "filetypes": ["go"],
+      "filetypes": [
+        "go"
+      ],
       "initializationOptions": {
         "gocodeCompletionEnabled": true,
         "diagnosticsEnabled": true,
@@ -20,10 +24,10 @@
       }
     }
   },
-"coc.preferences.rootPatterns": [
-      ".git",
-      ".hg",
-      ".projections.json",
-      "go.mod"
+  "coc.preferences.rootPatterns": [
+    ".git",
+    ".hg",
+    ".projections.json",
+    "go.mod"
   ]
 }
