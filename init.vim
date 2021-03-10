@@ -33,6 +33,9 @@ set updatetime=50
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
+"set colorcolumn=80
+"highlight ColorColumn ctermbg=0 guibg=lightgrey
+
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jremmen/vim-ripgrep'
@@ -108,13 +111,16 @@ endfunction
 
 
 " Nerdtree. Copypasta from readme
-map <silent> <C-m> :NERDTreeFind<CR>
-map <silent> <C-n> :NERDTreeToggle<CR>
+nnoremap <silent> <C-m> :NERDTreeFind<CR>
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+nnoremap <silent> <A-n> :cnext<CR>
+nnoremap <silent> <A-m> :cprev<CR>
 
 " split right and below instead of left and up
 set splitbelow
@@ -136,15 +142,29 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
 " Tabs for terminal mode
-tnoremap <leader>1 <C-\><C-n>1gt
-tnoremap <leader>2 <C-\><C-n>2gt
-tnoremap <leader>3 <C-\><C-n>3gt
-tnoremap <leader>4 <C-\><C-n>4gt
-tnoremap <leader>5 <C-\><C-n>5gt
-tnoremap <leader>6 <C-\><C-n>6gt
-tnoremap <leader>7 <C-\><C-n>7gt
-tnoremap <leader>8 <C-\><C-n>8gt
-tnoremap <leader>9 <C-\><C-n>9gt
+" tnoremap <leader>1 <C-\><C-n>1gt
+" tnoremap <leader>2 <C-\><C-n>2gt
+" tnoremap <leader>3 <C-\><C-n>3gt
+" tnoremap <leader>4 <C-\><C-n>4gt
+" tnoremap <leader>5 <C-\><C-n>5gt
+" tnoremap <leader>6 <C-\><C-n>6gt
+" tnoremap <leader>7 <C-\><C-n>7gt
+" tnoremap <leader>8 <C-\><C-n>8gt
+" tnoremap <leader>9 <C-\><C-n>9gt
+" Move splits using alt
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
 
 "" Custom remaps
 " golang macro
@@ -174,24 +194,23 @@ nnoremap <silent> <leader>n :noh<CR>
 
 " fzf ctrlp
 nnoremap <silent> <C-p> :FZF<CR>
+nnoremap <silent> <A-p> :GFiles<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-u': 'split',
   \ 'ctrl-s': 'vsplit' }
+" Find word under cursor
+nnoremap <silent> <leader>rg :Rg <cword><CR>
 
 " terminal
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-l> <C-\><C-n><C-w>l
 tnoremap <silent> <C-d> <C-\><C-n>:bd!<CR>
 tnoremap jj <C-\><C-n>
 " autocmd BufWinEnter,WinEnter term://* :setlocal nonu
-" autocmd BufEnter * if &buftype == 'terminal' | exec 'normal! i' | endif
+autocmd TermOpen * exec 'normal! i'
 let g:hidden_term = 0
 function TerminalModeSettings()
     setlocal nonu
-    tnoremap <silent> u <C-\><C-n>:call HideTerminal()<CR>
+    tnoremap <silent> <A-u> <C-\><C-n>:call HideTerminal()<CR>
 endfunction
 function HideTerminal()
     let g:hidden_term = bufnr("%")
@@ -203,14 +222,21 @@ function EnterTerminal(type)
         let g:hidden_term = 0
         exec a:type . 'sb ' . l:hidden_term
     else
-        terminal bash
+        if a:type == "tab "
+            :tabedit term://bash
+        elseif a:type == ""
+            :edit term://bash
+        elseif a:type == "vert "
+            :split term://bash
+        endif
     endif
 endfunction
 
-" autocmd BufEnter,TerminalOpen * if &buftype == 'terminal' | exec TerminalModeSettings() | endif
-nnoremap <silent> y :call EnterTerminal("tab ")<CR>
-nnoremap <silent> u :call EnterTerminal("")<CR>
-nnoremap <silent> i :call EnterTerminal("vert ")<CR>
+autocmd BufWinEnter,WinEnter,BufEnter term://* :exec 'normal i'
+autocmd TermOpen * exec TerminalModeSettings()
+nnoremap <silent> <A-y> :call EnterTerminal("tab ")<CR>
+nnoremap <silent> <A-u> :call EnterTerminal("")<CR>
+nnoremap <silent> <A-i> :call EnterTerminal("vert ")<CR>
 
 " line folding
 set foldmethod=syntax
@@ -225,4 +251,3 @@ endfun
 nnoremap <silent> <leader>c :call SynGroup()<CR>
 
 let g:python_highlight_all = 1
-
