@@ -13,14 +13,14 @@ set ignorecase
 set smartcase
 set noswapfile
 set nobackup
-set undodir=/home/daviesl2/.config/nvim/undodir
+set undodir=/home/vagrant/.config/nvim/undodir
 set undofile
 set incsearch
 set backspace=indent,eol,start
-set colorcolumn=80
+set colorcolumn=120
 set t_Co=256
 set autoread
-set shadafile=/home/daviesl2/.config/nvim/viminfo
+set shadafile=/home/vagrant/.config/nvim/viminfo
 set scrolloff=8
 "
 " Give more space for displaying messages.
@@ -32,9 +32,6 @@ set updatetime=50
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
-"set colorcolumn=80
-"highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
