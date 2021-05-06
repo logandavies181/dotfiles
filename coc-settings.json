@@ -13,17 +13,16 @@
       "settings": {}
     },
     "golang": {
-      "command": "/home/daviesl2/go/bin/gopls",
+      "command": "/home/vagrant/go/bin/gopls",
       "filetypes": [
         "go"
       ],
       "initializationOptions": {
-        "gocodeCompletionEnabled": true,
-        "diagnosticsEnabled": true,
-        "lintTool": "golint"
+        "usePlaceholders": true
       }
     }
   },
+
   "coc.preferences.rootPatterns": [
     ".git",
     ".hg",

@@ -3,8 +3,8 @@ syntax on
 let mapleader=" "
 set hidden
 set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=2 softtabstop=2
+set shiftwidth=2
 set expandtab
 set smartindent
 set nu
@@ -42,7 +42,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-fugitive'
@@ -50,13 +49,14 @@ Plug 'sainnhe/edge'
 Plug 'sainnhe/sonokai'
 Plug 'vim-python/python-syntax'
 Plug 'zigford/vim-powershell'
+Plug 'hashivim/vim-terraform'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
 "highlight Normal ctermbg=238
 colo gruvbox
 let g:airline_theme='angr'
-lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 
@@ -67,12 +67,9 @@ imap jj <Esc>
 
 " Filetype specific settings
 autocmd FileType go setlocal shiftwidth=8 softtabstop=8 tabstop=8 noexpandtab
-autocmd FileType yaml,tf,hcl setlocal shiftwidth=2 softtabstop=2
 autocmd FileType markdown setlocal wrap
 autocmd FileType json setlocal t_Co&
 autocmd FileType json highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
-autocmd BufEnter *.tfstate :setlocal filetype=json
-autocmd BufEnter *.tf :setlocal filetype=tf
 autocmd BufEnter Jenkinsfile :setlocal filetype=groovy
 
 " reopen file at same line
@@ -190,7 +187,7 @@ nnoremap <space><space> zz
 nnoremap <silent> <leader>n :noh<CR>
 
 " fzf ctrlp
-nnoremap <silent> <C-p> :FZF<CR>
+nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <A-p> :GFiles<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -248,3 +245,16 @@ endfun
 nnoremap <silent> <leader>c :call SynGroup()<CR>
 
 let g:python_highlight_all = 1
+
+" TreeSitter config
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  }
+}
+EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
