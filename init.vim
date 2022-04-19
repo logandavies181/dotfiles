@@ -51,6 +51,7 @@ Plug 'vim-python/python-syntax'
 Plug 'zigford/vim-powershell'
 Plug 'hashivim/vim-terraform'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'TovarishFin/vim-solidity'
 
 call plug#end()
 
@@ -167,6 +168,7 @@ nnoremap <silent> <leader>of oif err != nil {<CR>return err<CR>}<ESC>
 nnoremap <silent> <leader>af oif err != nil {<CR>return <CR>}<ESC>kA
 " curly brackets
 imap {<Space>} {<CR>}<ESC>O
+imap (<Space>) (<CR>)<ESC>O
 " jump around
 nnoremap <silent> <leader>j 10j
 nnoremap <silent> <leader>k 10k
@@ -258,3 +260,7 @@ EOF
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
