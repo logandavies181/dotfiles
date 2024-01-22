@@ -21,18 +21,20 @@ local plugins = {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
     opts = {
-      ensure_installed = {
-        "gopls",
-      }
+      -- ensure_installed = {
+      --   "csharp_ls",
+      --   "gopls",
+      -- }
+      automatic_installation = true,
     },
-    config = function(_, opts)
-      require("mason-lspconfig").setup(opts)
-      require("mason-lspconfig").setup_handlers {
-        function(server_name)  -- default handler (optional)
-          require("lspconfig")[server_name].setup {}
-        end,
-      }
-    end
+    -- config = function(_, opts)
+    --   require("mason-lspconfig").setup(opts)
+    --   require("mason-lspconfig").setup_handlers {
+    --     function(server_name)  -- default handler (optional)
+    --       require("lspconfig")[server_name].setup {}
+    --     end,
+    --   }
+    -- end
   },
   {
     "neovim/nvim-lspconfig",
