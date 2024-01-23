@@ -2,6 +2,8 @@ local plugins = {
   -- pairs can kick rocks
   { "windwp/nvim-autopairs", enabled = false },
 
+  { "gpanders/editorconfig.nvim" },
+
   {
     "xiyaowong/transparent.nvim",
     lazy = false,
