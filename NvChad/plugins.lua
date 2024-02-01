@@ -46,6 +46,9 @@ local plugins = {
       require "custom.configs.lspconfig"
     end
   },
+  -- C# just doesn't want to play nice out of the box
+  -- Make sure to update ~/.omnisharp/omnisharp.json
+  { "Hoffs/omnisharp-extended-lsp.nvim" },
 
   -- fun UI stuff for commands
   {
