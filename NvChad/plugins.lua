@@ -60,6 +60,17 @@ local plugins = {
       "rcarriga/nvim-notify",
     },
   },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      actions = {
+        open_file = {
+          quit_on_open = true,
+        },
+      },
+    },
+  },
 }
 
 return plugins
