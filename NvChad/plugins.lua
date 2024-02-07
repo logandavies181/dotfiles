@@ -9,7 +9,6 @@ local plugins = {
     lazy = false,
     config = function(_, opts)
       require("notify").setup(vim.tbl_extend("keep", {
-        -- other stuff
         background_colour = "#000000",
       }, opts))
     end,
@@ -17,26 +16,13 @@ local plugins = {
 
   {
     "williamboman/mason.nvim",
-    opts = {},
   },
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
     opts = {
-      -- ensure_installed = {
-      --   "csharp_ls",
-      --   "gopls",
-      -- }
       automatic_installation = true,
     },
-    -- config = function(_, opts)
-    --   require("mason-lspconfig").setup(opts)
-    --   require("mason-lspconfig").setup_handlers {
-    --     function(server_name)  -- default handler (optional)
-    --       require("lspconfig")[server_name].setup {}
-    --     end,
-    --   }
-    -- end
   },
   {
     "neovim/nvim-lspconfig",
@@ -50,7 +36,6 @@ local plugins = {
   -- Make sure to update ~/.omnisharp/omnisharp.json
   { "Hoffs/omnisharp-extended-lsp.nvim" },
 
-  -- fun UI stuff for commands
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -69,6 +54,15 @@ local plugins = {
           quit_on_open = true,
         },
       },
+    },
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    opts = {
+      -- don't show weird highlight for start of context
+      show_current_context = false,
+      show_current_context_start = false,
     },
   },
 }

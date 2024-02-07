@@ -8,6 +8,6 @@ opt.scrolloff = 8
 opt.shiftwidth = 4
 opt.whichwrap = "bs"
 
-require("tabwidth")
+require("custom.tabwidth")
 
 require("custom.reopen_same_spot")

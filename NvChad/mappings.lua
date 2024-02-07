@@ -22,6 +22,7 @@ M.logie = {
       end,
       "LSP hover",
     },
+    ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Repo-wide find files" },
   },
   v = {
     ["H"] = {"5h"},
