@@ -23,6 +23,12 @@ M.logie = {
       "LSP hover",
     },
     ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Repo-wide find files" },
+    ["<leader>e"] = {
+      function()
+        require("nvim-tree.api").tree.toggle({find_file = true, update_root = true})
+      end,
+      "Toggle NvimTree",
+    },
   },
   v = {
     ["H"] = {"5h"},

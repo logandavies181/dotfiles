@@ -11,6 +11,7 @@ local plugins = {
       require("notify").setup(vim.tbl_extend("keep", {
         background_colour = "#000000",
       }, opts))
+      vim.cmd("TransparentEnable")
     end,
   },
 
@@ -48,11 +49,42 @@ local plugins = {
 
   {
     "nvim-tree/nvim-tree.lua",
+    lazy = false,
     opts = {
       actions = {
         open_file = {
           quit_on_open = true,
         },
+      },
+    },
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "bash",
+        "css",
+        "csv",
+        "c_sharp",
+        "dockerfile",
+        "go",
+        "gomod",
+        "gosum",
+        "graphql",
+        "haskell",
+        "html",
+        "javascript",
+        "jq",
+        "lua",
+        "make",
+        "markdown",
+        "python",
+        "rego",
+        "rust",
+        "terraform",
+        "xml",
+        "yaml",
       },
     },
   },
