@@ -29,8 +29,8 @@ local plugins = {
     "neovim/nvim-lspconfig",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
+      require("nvchad.configs.lspconfig").defaults()
+      require("configs.lspconfig")
     end
   },
   -- C# just doesn't want to play nice out of the box
@@ -40,7 +40,6 @@ local plugins = {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    opts = {},
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
@@ -56,6 +55,7 @@ local plugins = {
           quit_on_open = true,
         },
       },
+      git = { enable = true },
     },
   },
 
@@ -86,15 +86,6 @@ local plugins = {
         "xml",
         "yaml",
       },
-    },
-  },
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    opts = {
-      -- don't show weird highlight for start of context
-      show_current_context = false,
-      show_current_context_start = false,
     },
   },
 }

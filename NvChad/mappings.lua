@@ -1,49 +1,50 @@
-local M = {}
+require "nvchad.mappings"
 
-M.logie = {
-  i = {
-    ["jj"] = {"<ESC>"},
-    ["jk"] = {"<ESC>"},
-    ["JJ"] = {"<ESC>"},
-    ["JK"] = {"<ESC>"},
-    ["{  }"] = {"{<CR>}<ESC>O"},
-    ["[  ]"] = {"[<CR>]<ESC>O"},
-    ["(  )"] = {"(<CR>)<ESC>O"},
-    ["{ }"] = {"{}<ESC>i"},
-    ["[ ]"] = {"[]<ESC>i"},
-    ["( )"] = {"()<ESC>i"},
-    ["\" \""] = {"\"\"<ESC>i"},
-    ["' '"] = {"''<ESC>i"},
-  },
-  n = {
-    ["H"] = {"5h"},
-    ["J"] = {"5j"},
-    ["K"] = {"5k"},
-    ["L"] = {"5l"},
-    ["<C-e>"] = {"5<C-e>"},
-    ["<C-y>"] = {"5<C-y>"},
-    ["]b"] = {":bnext<CR>", opts = { silent = true}},
-    ["[b"] = {":bprev<CR>", opts = { silent = true}},
-    ["gk"] = {
-      function()
-        vim.lsp.buf.hover()
-      end,
-      "LSP hover",
-    },
-    ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Repo-wide find files" },
-    ["<leader>e"] = {
-      function()
-        require("nvim-tree.api").tree.toggle({find_file = true, update_root = true})
-      end,
-      "Toggle NvimTree",
-    },
-  },
-  v = {
-    ["H"] = {"5h"},
-    ["J"] = {"5j"},
-    ["K"] = {"5k"},
-    ["L"] = {"5l"},
-  },
-}
+local map = vim.keymap.set
 
-return M
+-- escape insert mode
+map("i", "jk", "<ESC>", { desc = "Escape insert mode" })
+map("i", "jj", "<ESC>", { desc = "Escape insert mode" })
+map("i", "JJ", "<ESC>", { desc = "Escape insert mode" })
+map("i", "JK", "<ESC>", { desc = "Escape insert mode" })
+
+-- jump around
+map("n", "H", "5h", { desc = "Move 5" })
+map("n", "J", "5j", { desc = "Move 5" })
+map("n", "K", "5k", { desc = "Move 5" })
+map("n", "L", "5l", { desc = "Move 5" })
+map("v", "H", "5h", { desc = "Move 5" })
+map("v", "J", "5j", { desc = "Move 5" })
+map("v", "K", "5k", { desc = "Move 5" })
+map("v", "L", "5l", { desc = "Move 5" })
+
+map("n", "<C-e>", "5<C-e>", { desc = "Move 5" })
+map("n", "<C-y>", "5<C-y>", { desc = "Move 5" })
+
+-- Better pairs
+map("i", "{  }", "{<CR>}<ESC>O", { desc = "Enter backets on new line" })
+map("i", "(  )", "(<CR>)<ESC>O", { desc = "Enter backets on new line" })
+map("i", "[  ]", "[<CR>]<ESC>O", { desc = "Enter backets on new line" })
+map("i", "{ }", "{}<ESC>i", { desc = "Enter backets on same line" })
+map("i", "( )", "()<ESC>i", { desc = "Enter backets on same line" })
+map("i", "[ ]", "[]<ESC>i", { desc = "Enter backets on same line" })
+map("i", "\" \"", "\"\"<ESC>i", { desc = "Enter quotes on same line" })
+map("i", "''", "''<ESC>i", { desc = "Enter quotes on same line" })
+
+map("n", "]b", ":bnext<CR>", { desc = "Next tab" })
+map("n", "[b", ":bprev<CR>", { desc = "Prev tab" })
+
+
+map("n", "gk", 
+  function()
+    vim.lsp.buf.hover()
+  end,
+  { desc = "LSP hover" })
+
+map("n", "<leader>fg", "<cmd> Telescope git_files <CR>", { desc = "Repo-wide find files" })
+
+map("n", "<leader>e", 
+  function()
+    require("nvim-tree.api").tree.toggle({find_file = true, update_root = true})
+  end,
+  { desc = "Toggle NvimTree but better" })

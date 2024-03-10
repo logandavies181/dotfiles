@@ -1,13 +1,15 @@
-local configs = require("plugins.configs.lspconfig")
+local configs = require("nvchad.configs.lspconfig")
+
 local on_attach = configs.on_attach
+local on_init = configs.on_init
 local capabilities = configs.capabilities
 
-local lspconfig = require "lspconfig"
+local lspconfig = require("lspconfig")
 local servers = {
   "bashls",
   "cssls",
-  "hls",
   "html",
+  "lua_ls",
   "gopls",
   "pyright",
   "rust_analyzer",
@@ -16,6 +18,7 @@ local servers = {
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
+    on_init = on_init,
     on_attach = on_attach,
     capabilities = capabilities,
   }
@@ -24,6 +27,7 @@ end
 -- C# specific config zzzzz https://github.com/Decodetalkers/csharpls-extended-lsp.nvim?tab=readme-ov-file#usage
 local cs_config = {
   on_attach = on_attach,
+  on_init = on_init,
   capabilities = capabilities,
   handlers = {
     ["textDocument/definition"] = require('omnisharp_extended').handler,
