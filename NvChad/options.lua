@@ -1,6 +1,5 @@
-require "nvchad.options"
+require("nvchad.options")
 
--- add yours here!
 -- Disable netrw as per nvim-tree recs
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
@@ -18,6 +17,6 @@ opt.tabstop = 4
 opt.whichwrap = "bs"
 opt.wrap = false
 
-require("custom.tabwidth")
+require("tabwidth")
 
-require("custom.reopen_same_spot")
+require("reopen_same_spot")

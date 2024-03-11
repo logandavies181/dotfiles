@@ -1,8 +1,12 @@
 local configs = require("nvchad.configs.lspconfig")
 
-local on_attach = configs.on_attach
 local on_init = configs.on_init
 local capabilities = configs.capabilities
+
+local on_attach = function(client, bufnr)
+  configs.on_attach(client, bufnr)
+  vim.keymap.set("n", "K", "5k", { buffer = bufnr, desc = "Jump 5"})
+end
 
 local lspconfig = require("lspconfig")
 local servers = {
