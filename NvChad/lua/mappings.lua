@@ -31,11 +31,14 @@ map("i", "[ ]", "[]<ESC>i", { desc = "Enter backets on same line" })
 map("i", "\" \"", "\"\"<ESC>i", { desc = "Enter quotes on same line" })
 map("i", "''", "''<ESC>i", { desc = "Enter quotes on same line" })
 
-map("n", "]b", ":bnext<CR>", { desc = "Next tab" })
-map("n", "[b", ":bprev<CR>", { desc = "Prev tab" })
+map("n", "]b", ":bnext<CR>", { desc = "Next tab", silent = true })
+map("n", "[b", ":bprev<CR>", { desc = "Prev tab", silent = true })
 
+-- Stay in visual mode after indenting
+map("v", "<", "<gv", { desc = "Stay in visual mode after indenting" })
+map("v", ">", ">gv", { desc = "Stay in visual mode after indenting" })
 
-map("n", "gk", 
+map("n", "gk",
   function()
     vim.lsp.buf.hover()
   end,
@@ -43,7 +46,7 @@ map("n", "gk",
 
 map("n", "<leader>fg", "<cmd> Telescope git_files <CR>", { desc = "Repo-wide find files" })
 
-map("n", "<leader>e", 
+map("n", "<leader>e",
   function()
     require("nvim-tree.api").tree.toggle({find_file = true, update_root = true})
   end,
