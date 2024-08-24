@@ -42,3 +42,14 @@ map("n", "gk",
   { desc = "LSP hover" })
 
 map("n", "<leader>fg", "<cmd> Telescope git_files <CR>", { desc = "Repo-wide find files" })
+
+local function jump_to_diagnostic(diagnostic_fn)
+  return function()
+    vim.diagnostic.jump({ diagnostic = diagnostic_fn(), float = true })
+  end
+end
+local goto_next_diag = jump_to_diagnostic(vim.diagnostic.get_next)
+local goto_prev_diag = jump_to_diagnostic(vim.diagnostic.get_prev)
+
+map("n", "]d", goto_next_diag)
+map("n", "[d", goto_prev_diag)
