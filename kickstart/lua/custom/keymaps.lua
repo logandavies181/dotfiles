@@ -45,7 +45,13 @@ map("n", "<leader>fg", "<cmd> Telescope git_files <CR>", { desc = "Repo-wide fin
 
 local function jump_to_diagnostic(diagnostic_fn)
   return function()
-    vim.diagnostic.jump({ diagnostic = diagnostic_fn(), float = true })
+    local diag = diagnostic_fn()
+    if diag ~= nil
+    then
+      vim.diagnostic.jump({ diagnostic = diag , float = true })
+    else
+      print("No errors!")
+    end
   end
 end
 local goto_next_diag = jump_to_diagnostic(vim.diagnostic.get_next)
