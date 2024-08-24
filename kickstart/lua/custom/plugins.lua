@@ -14,6 +14,7 @@ return {
       require("notify").setup(vim.tbl_extend("keep", {
         background_colour = "#000000",
       }, opts))
+      require('transparent').clear_prefix('Neotree')
       vim.cmd("TransparentEnable")
     end,
   },
@@ -61,4 +62,12 @@ return {
   },
 
   { "Hoffs/omnisharp-extended-lsp.nvim" },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      theme = 'gruvbox',
+    },
+  },
 }
