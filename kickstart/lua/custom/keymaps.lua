@@ -64,3 +64,5 @@ local goto_prev_diag = jump_to_diagnostic(vim.diagnostic.get_prev)
 
 map("n", "]d", goto_next_diag)
 map("n", "[d", goto_prev_diag)
+
+map("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" })
