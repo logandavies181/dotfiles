@@ -1,4 +1,9 @@
-local map = vim.keymap.set
+local function map(mode, bef, aft, opts)
+  opts = opts or {}
+  opts.noremap = true
+  opts.silent = true
+  vim.keymap.set(mode, bef, aft, opts)
+end
 
 map('i', 'jj', '<Esc>', { desc = 'Quick esc' })
 map('i', 'jk', '<Esc>', { desc = 'Quick esc' })
@@ -28,8 +33,8 @@ map("i", "[ ]", "[]<ESC>i", { desc = "Enter backets on same line" })
 map("i", "\" \"", "\"\"<ESC>i", { desc = "Enter quotes on same line" })
 map("i", "''", "''<ESC>i", { desc = "Enter quotes on same line" })
 
-map("n", "]b", ":bnext<CR>", { desc = "Next tab", silent = true })
-map("n", "[b", ":bprev<CR>", { desc = "Prev tab", silent = true })
+map("n", "]b", ":tabnext<CR>", { desc = "Next tab" })
+map("n", "[b", ":tabprev<CR>", { desc = "Prev tab" })
 
 -- Stay in visual mode after indenting
 map("v", "<", "<gv", { desc = "Stay in visual mode after indenting" })
