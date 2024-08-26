@@ -1,5 +1,19 @@
 return {
-  { 'ellisonleao/gruvbox.nvim' },
+
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000 ,
+    config = true,
+    opts = {
+      italic = {
+        strings = false,
+        emphasis = false,
+        comments = false,
+        operators = false,
+        folds = false,
+      },
+    },
+  },
 
   {
     'gbprod/yanky.nvim',
@@ -56,7 +70,7 @@ return {
       local highlight = { "CursorColumn" }
       require('ibl').setup({
         scope = { enabled = false },
-        indent = { highlight = highlight , char = "┊", },
+        indent = { char = "┊", },
       })
     end
   },
