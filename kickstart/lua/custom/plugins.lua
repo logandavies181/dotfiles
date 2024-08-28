@@ -15,6 +15,8 @@ return {
     },
   },
 
+  { "sainnhe/sonokai" },
+
   {
     'gbprod/yanky.nvim',
     opts = {},
