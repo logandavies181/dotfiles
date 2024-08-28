@@ -12,6 +12,9 @@ return {
         operators = false,
         folds = false,
       },
+      palette_overrides = {
+        bright_green = "#68bf68",
+      },
     },
   },
 
@@ -69,7 +72,6 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     config = function()
-      local highlight = { "CursorColumn" }
       require('ibl').setup({
         scope = { enabled = false },
         indent = { char = "┊", },
