@@ -79,7 +79,10 @@ return {
     end
   },
 
-  { "Hoffs/omnisharp-extended-lsp.nvim" },
+  {
+    "Hoffs/omnisharp-extended-lsp.nvim",
+    config = function() return true end,
+  },
 
   {
     'nvim-lualine/lualine.nvim',

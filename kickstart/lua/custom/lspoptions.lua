@@ -1,11 +1,8 @@
 return {
   gopls = {},
 
-  omnisharp = {
-    handlers = {
-      ["textDocument/definition"] = require('omnisharp_extended').handler,
-    }
-  },
+  -- add the overridden handlers in autocmd in keymaps.lua
+  omnisharp = {},
 
   tsserver = {},
 
