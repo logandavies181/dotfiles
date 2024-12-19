@@ -1,9 +1,4 @@
-local function map(mode, bef, aft, opts)
-  opts = opts or {}
-  opts.noremap = true
-  opts.silent = true
-  vim.keymap.set(mode, bef, aft, opts)
-end
+local map = require("custom.helpers.map")
 
 map('i', 'jj', '<Esc>', { desc = 'Quick esc' })
 map('i', 'jk', '<Esc>', { desc = 'Quick esc' })
@@ -72,7 +67,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
 
 map("n", "gk", vim.lsp.buf.hover, { desc = "LSP hover" })
 -- kickstart lsp mappings
-map("n", 'gd', require('telescope.builtin').lsp_definitions, { desc = '[G]oto [D]efinition'} )
+--map("n", 'gd', require('telescope.builtin').lsp_definitions, { desc = '[G]oto [D]efinition'} )
+map("n", 'gd', vim.lsp.buf.definition, { desc = '[G]oto [D]efinition'} )
 map("n", 'gr', require('telescope.builtin').lsp_references, { desc = '[G]oto [R]eferences'} )
 map("n", 'gI', require('telescope.builtin').lsp_implementations, { desc = '[G]oto [I]mplementation'} )
 map("n", '<leader>D', require('telescope.builtin').lsp_type_definitions, { desc = 'Type [D]efinition'} )

@@ -3,7 +3,6 @@ require('lazy').setup(
 {
   require('defaults.plugins'),
   require('custom.plugins'),
-  require('kickstart.plugins.neo-tree'),
 },
   require('defaults.lazyoptions')
 )
