@@ -1,9 +1,6 @@
 require('defaults.options')
 require('lazy').setup(
-  {
-    require('defaults.plugins'),
-    require('custom.plugins'),
-  },
+  "plugins",
   require('defaults.lazyoptions')
 )
 require('custom/keymaps')
