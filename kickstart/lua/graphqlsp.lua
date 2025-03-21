@@ -4,7 +4,7 @@ require("lspconfig.configs").graphqlsp = {
     filetypes = {"graphql"},
     cmd = { "graphqlsp" },
     root_dir = function (name)
-      return require("lspconfig.util").root_pattern({".git"})(name)
+      return require("lspconfig.util").root_pattern({".git", "/tmp"})(name)
     end
   }
 }
