@@ -8,7 +8,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '<leader>w', ':Neotree reveal<CR>', desc = 'NeoTree reveal' },
+    { '<leader>w', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
     filesystem = {
