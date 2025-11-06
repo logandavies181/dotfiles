@@ -8,4 +8,5 @@ require('custom/reopen')
 require('custom/options')
 require('graphqlzp')
 require('bom')
+require('giturl')
 -- vim: ts=2 sts=2 sw=2 et
