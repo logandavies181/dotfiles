@@ -15,9 +15,13 @@ local function printUrl()
   local repoUrl = remoteUrl:sub(0, remoteUrl:len()-4)
 
   if remoteUrl:sub(0, 4) == "git@" then
+    repoUrl = repoUrl:gsub(":", "/", 1)
     repoUrl = "https://" .. repoUrl:sub(5)
   end
   local prefixLen = vim.fs.root(0, ".git"):len()
+
+  -- assume it's main branch
+  print(repoUrl .. "/tree/main" .. currentFilePath:sub(prefixLen + 1))
 end
 
 vim.api.nvim_create_user_command(
