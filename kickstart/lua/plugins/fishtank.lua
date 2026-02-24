@@ -23,7 +23,7 @@ local left = [[
 ]]
 local right = (function ()
   local parts = {}
-  for s in left:gmatch("([^(\n|\r\n)]+)") do
+  for s in left:gmatch("([^" .. "\n" .. "]+)") do
     s = replace(s)
     table.insert(parts, s:reverse())
   end

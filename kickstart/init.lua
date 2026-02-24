@@ -6,6 +6,7 @@ require('lazy').setup(
 require('custom/keymaps')
 require('custom/reopen')
 require('custom/options')
+require('deno_fix')
 require('graphqlzp')
 require('bom')
 require('giturl')
