@@ -10,6 +10,11 @@ local function replace(s)
     end
   end
 
+  -- Right pad to widest value so reverse looks normal.
+  for _ = 0, 14 - #s do
+    table.insert(sb, " ")
+  end
+
   return table.concat(sb)
 end
 
