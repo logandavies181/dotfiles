@@ -1,4 +1,4 @@
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd("BufRead", {
   pattern = {"*"},
   callback = function()
     local treesitter = require('nvim-treesitter')
