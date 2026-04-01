@@ -1,4 +1,4 @@
-vim.api.nvim_create_autocmd("BufRead", {
+vim.api.nvim_create_autocmd("BufEnter", {
   pattern = {"*"},
   callback = function()
     local treesitter = require('nvim-treesitter')
@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("BufRead", {
     for _, val in pairs(treesitter.get_available()) do
       if val == lang then
         treesitter.install(lang):await(function ()
-          vim.treesitter.start()
+          vim.treesitter.start(0, lang)
         end)
       end
     end
